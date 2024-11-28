@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active hr {
+  @apply block    /* this will set display to block ( from hidden in this case)  */;
+}
