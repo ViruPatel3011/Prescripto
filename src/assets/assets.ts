@@ -42,7 +42,7 @@ interface Address {
   line2: string;
 }
 
-interface Doctor {
+export interface Doctor {
   _id: string;
   name: string;
   image: string; // Assuming `doc1` and `doc2` are image paths/URLs.
@@ -215,7 +215,7 @@ export const doctors = [
     _id: "doc8",
     name: "Dr. Timothy White",
     image: doc8,
-    speciality: "Gynecologist",
+    speciality: "Gastroenterolgist",
     degree: "MBBS",
     experience: "3 Years",
     about:

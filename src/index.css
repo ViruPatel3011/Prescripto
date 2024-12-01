@@ -1,11 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Outfit:wght@100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: Outfit;
+}
 .active hr {
   @apply block    /* this will set display to block ( from hidden in this case)  */;
 }
 
-::-webkit-scrollbar{
-  @apply hidden
+::-webkit-scrollbar {
+  @apply hidden;
 }
