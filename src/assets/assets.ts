@@ -56,6 +56,7 @@ export interface Doctor {
 
 export interface AppContextType {
   doctors: Doctor[];
+  currencySymbol: string;
 }
 
 export const assets = {
