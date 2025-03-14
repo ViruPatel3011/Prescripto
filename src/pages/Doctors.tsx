@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { Doctor } from "../assets/assets";
@@ -7,8 +7,10 @@ const Doctors = () => {
   const { speciality } = useParams();
   const navigate = useNavigate();
   const [filterDoc, setFilterDoc] = useState<Doctor[]>([]);
+  const [showFilter, setShowFilter] = useState(false);
 
   const { doctors } = useContext(AppContext);
+  console.log("doctors", doctors);
 
   const applyFilter = () => {
     if (speciality) {
@@ -26,7 +28,22 @@ const Doctors = () => {
     <div>
       <p className="text-gray-600">Browse through the doctors specialist.</p>
       <div className="flex flex-col sm:flex-row items-start gap-5 mt-5">
-        <div className=" flex flex-col gap-4 text-sm text-gray-600">
+        <button
+          className={`py-1 px-3 border rounded text-sm sm:hidden transition-all ${
+            showFilter ? "bg-primary text-white" : ""
+          }`}
+          onClick={() => {
+            setShowFilter((prev) => !prev);
+          }}
+        >
+          Filters
+        </button>
+
+        <div
+          className={`flex-col gap-4 text-sm text-gray-600 ${
+            showFilter ? "flex" : "hidden sm:flex"
+          }`}
+        >
           <p
             onClick={() =>
               speciality === "General physician"

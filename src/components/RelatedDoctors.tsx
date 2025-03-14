@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Doctor } from "../assets/assets";
 
 interface relDocProps {
-  docId: string;
+  docId: string | undefined;
   speciality: string;
 }
 
