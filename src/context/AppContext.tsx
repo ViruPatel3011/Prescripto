@@ -1,11 +1,17 @@
 import { createContext, useEffect, useState } from "react";
-import { AppContextType } from "../assets/assets";
+import { AppContextType, User } from "../assets/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const defaultValue: AppContextType = {
-  doctors: [], // Default to an empty array if no doctors are available.
+  doctors: [],
   currencySymbol: "",
+  token: null,
+  setToken: () => {},
+  backendUrl: "",
+  userData: null,
+  setUserData: () => {},
+  loadUserProfileData: async () => {},
 };
 
 export const AppContext = createContext<AppContextType>(defaultValue);
@@ -15,11 +21,11 @@ const AppContextProvider = (props: any) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const [doctors, setDoctors] = useState([]);
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : ""
+  );
 
-  const value = {
-    doctors,
-    currencySymbol,
-  };
+  const [userData, setUserData] = useState<User | null>(null);
 
   const getDoctorsData = async () => {
     try {
@@ -36,9 +42,53 @@ const AppContextProvider = (props: any) => {
     }
   };
 
+  const loadUserProfileData = async () => {
+    const response = await axios.get(backendUrl + "/api/user/get-profile", {
+      headers: {
+        token,
+      },
+    });
+    console.log("response", response);
+
+    const { userData, success } = response.data;
+
+    console.log("userData", userData);
+
+    if (success) {
+      setUserData(userData);
+    } else {
+      toast.error("Error while fetching user details ");
+    }
+
+    try {
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
+  const value = {
+    doctors,
+    currencySymbol,
+    setToken,
+    token,
+    backendUrl,
+    setUserData,
+    userData,
+    loadUserProfileData,
+  };
+
   useEffect(() => {
     getDoctorsData();
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      loadUserProfileData();
+    } else {
+      setUserData(null);
+    }
+  }, [token]);
 
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>

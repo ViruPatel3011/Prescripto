@@ -57,7 +57,25 @@ export interface Doctor {
 export interface AppContextType {
   doctors: Doctor[];
   currencySymbol: string;
+  token: string | null,
+  setToken: (token: string) => void,
+  backendUrl: string,
+  userData: User | null;
+  setUserData: (userData: User) => void;
+  loadUserProfileData: () => Promise<void>;
 }
+export interface User {
+  _id: string,
+  name: string;
+  email: string;
+  image?: string;
+  address: Address;
+  gender: string;
+  dob: string;
+  phone: string;
+}
+
+
 
 export const assets = {
   appointment_img,
