@@ -52,10 +52,29 @@ export interface Doctor {
   about: string;
   fees: number;
   address: Address;
+  slots_booked: Record<string, string[]>;
+}
+
+
+export interface Appointment {
+  _id: string,
+  userId: string;
+  docId: string;
+  slotDate: string;
+  slotTime: string;
+  userData: User
+  docData: Doctor;
+  amount: number;
+  date: number;
+  cancelled: boolean;
+  payment: boolean;
+  isCompleted: boolean;
+
 }
 
 export interface AppContextType {
   doctors: Doctor[];
+  getDoctorsData: () => Promise<void>;
   currencySymbol: string;
   token: string | null,
   setToken: (token: string) => void,

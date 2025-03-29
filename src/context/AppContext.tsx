@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const defaultValue: AppContextType = {
   doctors: [],
+  getDoctorsData: async () => {},
   currencySymbol: "",
   token: null,
   setToken: () => {},
@@ -48,11 +49,9 @@ const AppContextProvider = (props: any) => {
         token,
       },
     });
-    console.log("response", response);
 
     const { userData, success } = response.data;
 
-    console.log("userData", userData);
 
     if (success) {
       setUserData(userData);
@@ -69,6 +68,7 @@ const AppContextProvider = (props: any) => {
 
   const value = {
     doctors,
+    getDoctorsData,
     currencySymbol,
     setToken,
     token,
